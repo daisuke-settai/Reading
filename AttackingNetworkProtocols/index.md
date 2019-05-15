@@ -1,15 +1,30 @@
 ## Attacking Network Protocols
+#### Author: James Forshaw
+Google Project Zeroに参加しているセキュリティ研究者．Microsoftから$100,000の賞金を獲得．
+
+#### Contents:
+攻撃者の観点からネットワークを調査，脆弱性の発見，悪用，そして保護について解説する．例えば，パケットキャプチャ，操作，なりすまし，独自のキャプチャフレームワーク作成，コードのリバーシング，パスワードクラッキング，トラフィック復号化，DoS，SQLインジェクション，メモリ破壊による脆弱性の悪用，トラフィックの再ルーティング，圧縮，データフローの制御．
+  - Part1: ネットワークの基本とトラフィックキャプチャ
+  - Part2: 静的・動的にプロトコルを分析し，リバースエンジニアリング手法を解説
+  - Part3: 脆弱性の発見と悪用を解説
+  - Appendix: ネットワーク分析と活用に最適なツールの紹介
+
+[amazon.co.jp](https://www.amazon.co.jp/Attacking-Network-Protocols-James-Forshaw/dp/1593277504/ref=sr_1_fkmrnull_1?__mk_ja_JP=カタカナ&keywords=attacking+network+protocols&qid=1557849710&s=gateway&sr=8-1-fkmrnull)
 
 ### Schedule
-| No  | Date (Period) | Pages | Name    | Title (Link)                  |
-|:---:|:-------------:|:-----:|:-------:|-------------------------------|
-| 1   | 5/21 (6)      | 23    | ed      | The Basics of Networking      |
-| 2   | 5/21 (6)      | 34    | ed      | Capturing Application Traffic |
-| 3   | 5/28 (6)      | 60    | moririn |                               |
-| 4   | 5/28 (6)      | 87    | sizu    |                               |
-| 5   | 5/30 (6)      | 103   | ed      |                               |
-| 6   | 6/3  (4)      | 136   | moririn |                               |
-| 7   | 6/3  (4)      | 175   | sizu    |                               |
-| 8   | 6/3  (4)      | 214   | ed      |                               |
-| 9   | 6/10 (4)      | 242   | moririn |                               |
-| 10  | 6/10 (4)      | 267   | sizu    |                               |
+
+| No  | Date (Period) | Pages | Name    | Title (Note)                                  | Slide                                         |
+|:---:|:-------------:|:-----:|:-------:|-----------------------------------------------|-----------------------------------------------|
+| 1   | 5/21 (6)      | 23    | ed      | [The Basics of Networking](./01/note.md)      | [Slide](./01/AttackingNetworkProtocols01.pdf) |
+| 2   | 5/21 (6)      | 34    | ed      | Capturing Application Traffic                 |                                               |
+| 3   | 5/28 (6)      | 60    | moririn | Network Protocol Structure                    |                                               |
+| 4   | 5/28 (6)      | 87    | sizu    | Advanced Application Traffic Capture          |                                               |
+| 5   | 5/30 (6)      | 103   | ed      | Analysis from the Wire                        |                                               |
+| 6   | 6/3  (4)      | 136   | moririn | Application Reverse Engineering               |                                               |
+| 7   | 6/3  (4)      | 175   | sizu    | Network Protocol Security                     |                                               |
+| 8   | 6/3  (4)      | 214   | ed      | Implementing the Network Protocol             |                                               |
+| 9   | 6/10 (4)      | 242   | moririn | The Root Causes of Vulnerabilities            |                                               |
+| 10  | 6/10 (4)      | 267   | sizu    | Finding and Exploiting Security Vulnerability |                                               |
+
+
+[Top Page](../index.md)
