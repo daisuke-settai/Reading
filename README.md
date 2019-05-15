@@ -18,9 +18,18 @@ https://daisuke-settai.github.io/Reading/
 
 
 ## Others
+<<<<<<< HEAD
 ##### [ローカルでサンプルページ表示](https://sakanasoft.net/github-pages-by-localhost/)
 (rubyとgemは入ってるよね？)
+=======
+- ローカルでサンプルページ表示
+  (rubyとgemは入ってるよね？)
+>>>>>>> 1b5a8e5... fix README
   1. gem install bundler (bundler 入ってますか？)
   2. ./Reading ディレクトリに移動
   3. bundle install (jekyll 導入するよ)
   4. bundle exec jekyll server (ローカルにサーバー立てるよ)
+<<<<<<< HEAD
+=======
+  [Reference](https://sakanasoft.net/github-pages-by-localhost/)
+>>>>>>> 1b5a8e5... fix README
