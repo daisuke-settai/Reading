@@ -14,7 +14,7 @@
 下図はクライアントとサーバーがイーサネット経由でネットワーク通信するシナリオである．
 パッシブキャプチャは，クライアントホスト，サーバーホスト，通信路上のタップデバイスのいずれかで直接探知可能．
 
-![パッシブネットワークキャプチャ例](./img/figure2-1.png)
+![パッシブネットワークキャプチャ例](./img/figure2-1.pdf)
 
 ## Quick Primer for Wireshark
 Wiresharkは一般的なパケットスニッフィングアプリケーションである．(5章で詳細なフィルタ作成を扱う)
@@ -23,7 +23,7 @@ Wiresharkは一般的なパケットスニッフィングアプリケーショ�
 自分のアプリケーションの監視ならインターフェイスにループバックインターフェイス，送信インターフェイスを指定すれば良い．
 その他の場合は，ハブや設定を仕込んだスイッチなどのハードウェアを使う必要がある．
 
-![Wiresharkサンプル1](./img/figure2-2.png)
+![Wiresharkサンプル1](./img/figure2-2.pdf)
 
 上図はwiresharkのデフォルトの表示である．
 1がキャプチャされた生パケットのタイムライン．
@@ -32,7 +32,7 @@ Wiresharkは一般的なパケットスニッフィングアプリケーショ�
 ネットワークの性質上，パケットが順序通りに到着するとは限らないため，タイムライン上の表示が順序通りに整っているとは限らないが，TCPはプロトコル上，順序を整える仕組みを持つためTCP解析すると下図のような順序通りの情報が得られる．
 Wiresharkに関するこれ以上の情報は「実践パケット解析」を参照．
 
-![Wiresharkサンプル2](./img/figure2-3.png)
+![Wiresharkサンプル2](./img/figure2-3.pdf)
 
 ## Alternative Passive Capture Techniques
 キャプチャ権限のない場合，スニファを使うのが適切でない場合がある．
@@ -40,7 +40,7 @@ Wiresharkに関するこれ以上の情報は「実践パケット解析」を�
 
 ##### System Call Tracing
 
-![システムコールを通したユーザー/カーネルネットワーク通信](./img/figure2-4.png)
+![システムコールを通したユーザー/カーネルネットワーク通信](./img/figure2-4.pdf)
 
 OSは2つの実行モードをサポートする．
 カーネルモードは高レベル権限で動作し，OSのコア機能を実現するコードが含まれる．
@@ -66,7 +66,7 @@ Linuxでは，アプリケーションが特権ユーザとして実行されて
 3. "Hello World!"を送信．
 4. "Boo!"を受信．
 
-![straceユーティリティ出力](./img/list2-1.png)
+![straceユーティリティ出力](./img/list2-1.pdf)
 
 ##### Monitoring Network Connections with DTrace
 Dtraceはトレースポイントを有効にすることでシステム全体の監視ができる．
@@ -80,14 +80,14 @@ arg0はソケット識別子，arg1はアドレス構造体，arg2はアドレ�
 4. 検査しやすいようにローカル構造体にコピー
 5. プロセス名，宛先IPアドレス，ポート番号を表示
 
-![DTrace script](./img/list2-2.png)
+![DTrace script](./img/list2-2.pdf)
 
 これを実行するにはtraceconnect.dにコピーしたのちrootユーザとして'dtrace -s traceconnect.d'を実行．
 その後，ネットワーク接続アプリケーションを使用すると，下図のような出力が得られる．
 OSXなどではSystem Integrity Protextionによりシステムコールトレースが制限される
 [dtrussでgolangのシステムコールをトレースしたい - Qiita](https://qiita.com/yurakawa/items/2ab084a2f3f0aa0bf0c7)
 
-![Dtrace output](./img/list2-3.png)
+![Dtrace output](./img/list2-3.pdf)
 
 ##### Process Monitor on Windows
 Windowsの場合，直接システムコールを呼び出さずにネットワーク機能をつかう．
@@ -96,7 +96,7 @@ Vista以降はアプリケーションがネットワークを監視できるよ
 これを自分で用いるのは複雑であるが，利用するツール(Process Monitor)が存在する．
 下図はネットワーク接続イベントのみをフィルタリングする場合のインターフェイスである．
 
-![Process Monitor](./img/figure2-5.png)
+![Process Monitor](./img/figure2-5.pdf)
 
 ツールバーのフィルタを選択すると監視対象プロセスからのイベントのみを表示できる．
 Process Monitorは，トラフィックの呼び出し元スタックの状態をキャプチャ可能であり，リバースエンジニアリングによってネットワークプロトコルを作成(6章)するときに重要である．
@@ -106,7 +106,7 @@ Process Monitorは，トラフィックの呼び出し元スタックの状態�
 3. アドレス
 4. イベントの詳細
 
-![HTTP Capture](./img/figure2-6.png)
+![HTTP Capture](./img/figure2-6.pdf)
 
 これは他のツールほど効果的ではないが，特定のアプリケーションが利用しているプロトコルを特定する場合に便利である．
 特定したのち，アクティブなトラフィックキャプチャを通して情報を詳細に分析する．
@@ -127,7 +127,7 @@ Process Monitorは，トラフィックの呼び出し元スタックの状態�
 
 ## Active Network Traffic Capture
 
-![中間者攻撃プロキシ](./img/figure2-7.png)
+![中間者攻撃プロキシ](./img/figure2-7.pdf)
 
 アクティブキャプチャは中間者攻撃を用いてトラフィックに影響を与える．
 キャプチャデバイスはクライアントとサーバーの間にありブリッジとして機能する．
@@ -147,7 +147,7 @@ Process Monitorは，トラフィックの呼び出し元スタックの状態�
 #### 各プロキシの比較
 - Port-Forwarding Proxy
 
-![TCPポートフォワーディングプロキシ](./img/figure2-8.png)
+![TCPポートフォワーディングプロキシ](./img/figure2-8.pdf)
 
 プロキシサーバーをセットアップして，クライアントからの接続を待つ．
 接続要求があると，プロキシとクライアント間に接続が確立し，その後プロキシとサーバー間で接続を確立する．
@@ -155,7 +155,7 @@ Process Monitorは，トラフィックの呼び出し元スタックの状態�
 
 ##### Simple Implementation
 
-![TCPポートフォワーディングプロキシC#スクリプト](./img/list2-4.png)
+![TCPポートフォワーディングプロキシC#スクリプト](./img/list2-4.pdf)
 
 プロキシの作成はCanape CoreライブラリのTCPポートフォワーダーを用いる．
 上図のC#スクリプトの2にプロキシが接続を待機するポートを設定し，3, 4に本来の宛先情報を設定する．
@@ -186,7 +186,7 @@ HTTPのようにプロトコルによっては自身のヘッダ中に宛先ア�
 
 - SOCKS Proxy
 
-![SOCKSプロキシ](./img/figure2-9.png)
+![SOCKSプロキシ](./img/figure2-9.pdf)
 
 SOCKSプロキシは単純な転送だけでなく，複数の接続先の確立が可能である．
 そのため，アプリケーションサーバーがデータ送信のために新規ポートを開くようなFTPもサポート可能である．
@@ -194,9 +194,9 @@ SOCKSにはver4, 4a, 5があり，ver4は最も一般的なものであり，メ
 クライアントはリクエストに宛先ポート番号，宛先アドレスを指定し，ユーザ名で認証を行う(安全性はない)．
 レスポンスのアドレス．ポートフィールドはバインディング要求にのみ利用．
 
-![SOCKS4リクエスト](./img/figure2-10.png)
+![SOCKS4リクエスト](./img/figure2-10.pdf)
 
-![SOCKS4レスポンス](./img/figure2-11.png)
+![SOCKS4レスポンス](./img/figure2-11.pdf)
 
 ver 4はIPv4のみサポートで，ホスト名は用いることができない．
 ver 4aはホスト名による接続が許可(DNSがない場合に便利)．
@@ -204,7 +204,7 @@ ver 5はIPv6, UDP転送，認証メカニズムの改善が導入．
 
 ##### Simple Implementation
 
-![SOCKSプロキシC#スクリプト](./img/list2-6.png)
+![SOCKSプロキシC#スクリプト](./img/list2-6.pdf)
 
 Canape CoreライブラリはSOCKS4, 4a, 5をサポートしており，プロキシサーバーはC#スクリプトで作成可能．
 2のLOCALPORTをリッスンしたいポートに設定．
@@ -212,11 +212,11 @@ Canape CoreライブラリはSOCKS4, 4a, 5をサポートしており，プロ�
 ##### Redirecting Traffic to Proxy
 トラフィックをプロキシに向けるには．ブラウザなら下図のようにプロキシ設定を行う．
 
-![Firefoxプロキシ設定](./img/figure2-12.png)
+![Firefoxプロキシ設定](./img/figure2-12.pdf)
 
 Javaアプリケーションなどプロキシ設定が組み込まれていない場合，JavaランタイムはSOCKSサポートを有効にするコマンドラインパラメータが存在する．下のJavaコードはポート5555, IPアドレス192.168.10.1に接続するTCPクライアントである．
 
-![Java TCPクライアント](./img/list2-7.png)
+![Java TCPクライアント](./img/list2-7.pdf)
 
 コンパイル済みプログラムにSOCKSプロキシを適用するには次のようにすれば良い．
 
@@ -238,7 +238,7 @@ SOCKSツールの導入により堅牢性を高ようとしてもOSとの問題�
 
 - HTTP Proxy
 
-![HTTPプロキシ](./img/figure2-14.png)
+![HTTPプロキシ](./img/figure2-14.pdf)
 
 HTTPプロキシはアウトバウンドトラフィックのHTTP通信を中継する．
 HTTPプロキシは制限の厳しいファイアウォールを通過するため，JavaのRMI(Remote Method Invocation)やRTMP(Real Time Messaging Protocol)などの非webの転送機能にも使われる．
@@ -286,7 +286,7 @@ HTTP/1.1 200 Connection Established
 Canape CoreライブラリはCONNECTメソッドをサポートしていない．
 HTTPプロキシの作成では2にローカルポートを指定する．
 
-![HTTPプロキシスクリプト](./img/list2-8.png)
+![HTTPプロキシスクリプト](./img/list2-8.pdf)
 
 ##### Redirecting Traffic to Proxy
 HTTPを用いるアプリケーションはプロキシ設定を持つ．
@@ -308,11 +308,11 @@ HTTP1.1接続処理は複雑なため，通信をHTTP1.0にダウングレード
 リバースプロキシはこの情報から本来のサーバーへのリクエストを構築する．
 TLSで暗号化されたHTTPSトラフィックに使用することは困難である．
 
-![HTTPリクエスト](./img/list2-9.png)
+![HTTPリクエスト](./img/list2-9.pdf)
 
 ##### Simple Implementation
 
-![リバースHTTPプロキシ](./img/list2-10.png)
+![リバースHTTPプロキシ](./img/list2-10.pdf)
 
 ##### Redirecting Traffic to Your Proxy
 リクエストをプロキシに向けるにはhostsファイルを編集するかDNSサーバーを構築する．
@@ -321,7 +321,7 @@ TLSで暗号化されたHTTPSトラフィックに使用することは困難で
 1, 2にサーバーのアドレス，3を適当な文字列に設定．
 これはすべてのDNS要求に単一のIPドレスのみを偽装する．
 
-![DNSサーバー](./img/list2-11.png)
+![DNSサーバー](./img/list2-11.pdf)
 
 ##### Advantage of a Reverse HTTP Proxy
 クライアントアプリケーション側で設定が必要ない点．

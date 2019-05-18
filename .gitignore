@@ -4,5 +4,7 @@
 !**.md
 !**.yml
 !sample/*
+!**/img/*
+!**/src/*
 
 _site/
