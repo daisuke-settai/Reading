@@ -4,6 +4,7 @@
 !**.md
 !**.yml
 !sample/*
+!assets/**
 !**/img/*
 !**/src/*
 
