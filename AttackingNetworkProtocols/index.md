@@ -13,18 +13,18 @@ Google Project Zeroに参加しているセキュリティ研究者．Microsoft�
 
 ### Schedule
 
-| No  | Date (Period) | Pages | Name    | Title (Note)                                  | Slide                                         |
-|:---:|:-------------:|:-----:|:-------:|-----------------------------------------------|-----------------------------------------------|
+| No  | Date (Period) | Pages | Name    | Title (Note)                                  | Slide                                                                       |
+|:---:|:-------------:|:-----:|:-------:|-----------------------------------------------|-----------------------------------------------------------------------------|
 | 1   | 5/21 (6)      | 23    | ed      | [The Basics of Networking](./01/note.md)      | [Slide](https://drive.google.com/open?id=1vmu8rco-xRKfhPiGfXumr0Ymjf9KhiLk) |
 | 2   | 5/21 (6)      | 34    | ed      | [Capturing Application Traffic](./02/note.md) | [Slide](https://drive.google.com/open?id=1b4tKN78VuOfmfIuL8BZ4XekYtV6H31sQ) |
-| 3   | 5/28 (6)      | 60    | moririn | Network Protocol Structure                    |                                               |
-| 4   | 5/28 (6)      | 87    | sizu    | Advanced Application Traffic Capture          |                                               |
-| 5   | 5/30 (6)      | 103   | ed      | Analysis from the Wire                        |                                               |
-| 6   | 6/3  (4)      | 136   | moririn | Application Reverse Engineering               |                                               |
-| 7   | 6/3  (4)      | 175   | sizu    | Network Protocol Security                     |                                               |
-| 8   | 6/3  (4)      | 214   | ed      | Implementing the Network Protocol             |                                               |
-| 9   | 6/10 (4)      | 242   | moririn | The Root Causes of Vulnerabilities            |                                               |
-| 10  | 6/10 (4)      | 267   | sizu    | Finding and Exploiting Security Vulnerability |                                               |
+| 3   | 5/28 (6)      | 60    | cmer    | Network Protocol Structure                    |                                                                             |
+| 4   | 5/28 (6)      | 87    | sizu    | Advanced Application Traffic Capture          |                                                                             |
+| 5   | 5/30 (6)      | 103   | moririn | Analysis from the Wire                        |                                                                             |
+| 6   | 6/30 (6)      | 136   | ed      | Application Reverse Engineering               |                                                                             |
+| 7   | 6/4  (6)      | 175   | cmer    | Network Protocol Security                     |                                                                             |
+| 8   | 6/4  (6)      | 214   | sizu    | Implementing the Network Protocol             |                                                                             |
+| 9   | 6/10 (4)      | 242   | moririn | The Root Causes of Vulnerabilities            |                                                                             |
+| 10  | 6/10 (4)      | 267   | ed      | Finding and Exploiting Security Vulnerability |                                                                             |
 
 
 [Top Page](../index.md)
