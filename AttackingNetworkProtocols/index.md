@@ -17,7 +17,7 @@ Google Project Zeroに参加しているセキュリティ研究者．Microsoft�
 |:---:|:-------------:|:-----:|:-------:|-----------------------------------------------|-----------------------------------------------------------------------------|
 | 1   | 5/21 (6)      | 1     | ed      | [The Basics of Networking](./01/note.md)      | [Slide](https://drive.google.com/open?id=1vmu8rco-xRKfhPiGfXumr0Ymjf9KhiLk) |
 | 2   | 5/21 (6)      | 11    | ed      | [Capturing Application Traffic](./02/note.md) | [Slide](https://drive.google.com/open?id=1b4tKN78VuOfmfIuL8BZ4XekYtV6H31sQ) |
-| 3   | 5/28 (6)      | 37    | cmer    | Network Protocol Structure                    | [Slide](https://drive.google.com/file/d/1ScwHTwmxvrvqLDu_MRPPl0svg6Hm8J9h/view?usp=sharing)                                                                            |
+| 3   | 5/28 (6)      | 37    | cmer    | Network Protocol Structure                    | [Slide](https://drive.google.com/open?id=1Hn3T1Qyok-VnLK6Hl8knTVvLNhWRtpJR)                                                                            |
 | 4   | 5/28 (6)      | 63    | sizu    | Advanced Application Traffic Capture          |                                                                             |
 | 5   | 5/30 (6)      | 79    | moririn | Analysis from the Wire                        |                                                                             |
 | 6   | 5/30 (6)      | 111   | ed      | Application Reverse Engineering               |                                                                             |
