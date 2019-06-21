@@ -22,7 +22,7 @@ Google Project Zeroに参加しているセキュリティ研究者．Microsoft�
 | 5   | 6/4 (6)       | 79    | moririn | Analysis from the Wire                        | [Slide](https://drive.google.com/open?id=1FkYJyQRqqWg8U6kX3gIi2v3HPqphGMtS)                                                                            |
 | 6   | 6/6 (6)       | 111   | ed      | Application Reverse Engineering               | [Slide](https://drive.google.com/open?id=1KzBdo_sYJzZWncB8QJZK06-6D1bmo3NF)                                                                           |
 | 7   | 6/10  (6)     | 145   | moririn | Network Protocol Security                     | [Slide](https://drive.google.com/file/d/1mIJ5lnOBvLWr-Yypn7GYOQ1iVH15m40c/view?usp=sharing)                                                                            |
-| 8   | 6/10  (6)     | 179   | sizu    | Implementing the Network Protocol             | [Slide](https://drive.google.com/file/d/1E0BRjeB1_XRMDQeIO2M5RUfkEufoujIK/view?usp=sharing)                                                                            |
+| 8   | 6/10  (6)     | 179   | sizu    | Implementing the Network Protocol             | [Slide](https://drive.google.com/open?id=1E0BRjeB1_XRMDQeIO2M5RUfkEufoujIK)                                                                            |
 | 9   | 6/20 (6)      | 207   | cmer    | The Root Causes of Vulnerabilities            |                                                                             |
 | 10  | 6/20 (6)      | 233   | ed      | Finding and Exploiting Security Vulnerability |                                                                             |
 
