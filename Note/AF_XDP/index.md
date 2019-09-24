@@ -241,6 +241,7 @@ git checkout v5.0-rc7
   GRO(Generic Receive Offload)の開始までを見ていきます．
   ここのRXの処理中にXDPのドライバレベルフックが存在します．
   後半でもう一つのGeneric XDP(NICがXDPをサポートしない場合のXDPフック)が登場します．
+
   ```c
   # i40e/i40e.h
   struct i40e_q_vector {
@@ -481,7 +482,7 @@ git checkout v5.0-rc7
     rx_buffer->page_offset ^= truesize;
     return skb;
   }
-```
+  ```
   - XDP処理がskbアロケートより前に動作することがわかりましたでしょうか．
   具体的なXDP実行の処理`i40e_run_xdp()`は後ほど確認します．
 9. Generic Receive Offload ~ L3の呼び出し
