@@ -315,8 +315,9 @@ git checkout v5.0-rc7
 	if (likely(napi_complete_done(napi, work_done))) # ポーリング処理が終わったらpollをnapiリストから除外します
 		i40e_update_enable_itr(vsi, q_vector);  # 無効にした割り込み信号を有効にしている(?)
   }
-
-  # まずは簡単にtx_ringに関する上の処理を見ます
+  ```
+  - まずは簡単にtx_ringに関する上の処理を見ます
+  ```c
   # i40e/i40e_txrx.c
   static bool i40e_clean_tx_irq(struct i40e_vsi *vsi, struct i40e_ring *tx_ring, int napi_budget)
   {
