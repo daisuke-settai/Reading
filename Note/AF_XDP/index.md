@@ -238,7 +238,7 @@ git checkout v5.0-rc7
   GRO(Generic Receive Offload)の開始までを見ていきます．
   ここのRXの処理中にXDPのドライバレベルフックが存在します．
   後半でもう一つのGeneric XDP(NICがXDPをサポートしない場合のXDPフック)が登場します．
-  ```
+  ```c
   # i40e/i40e.h
   struct i40e_q_vector {
     struct i40e_vsi *vsi;
@@ -652,7 +652,6 @@ git checkout v5.0-rc7
   これによってグローバル変数である`net_families`変数の配列に登録します.
   - この仕組みをソースコードから読み解く順序として取り掛かりやすいのはおそらくsocketシステムコールから追いかけることだと思います.
   少しやってみましょう.
-
   ```
     # 何箇所か知識が必要な点があります.
     # 1つ目はシステムコールはCPUのraxレジスタにシステムコール番号を設定してsyscall命令を発行する必要があるという点です.
@@ -663,7 +662,7 @@ git checkout v5.0-rc7
     # そのため, システムコールラッパがrcxの値をr10にコピーしてraxにアーキテクチャ依存のシステムコール番号を設定し, syscall命令を発生させるコードを挟む必要があります.
     # このようなバイナリレベルの規約をABI(Application Binary Interface)と呼びます.
   ```
-   - では, socketシステムコール先を見ていきましょう
+  - では, socketシステムコール先を見ていきましょう
   ```c
   # システムコールはSYSCALL_DEFINEマクロを用いて作成されます.
   # net/socket.c
