@@ -238,6 +238,7 @@ git checkout v5.0-rc7
   GRO(Generic Receive Offload)の開始までを見ていきます．
   ここのRXの処理中にXDPのドライバレベルフックが存在します．
   後半でもう一つのGeneric XDP(NICがXDPをサポートしない場合のXDPフック)が登場します．
+
   ```c
   # i40e/i40e.h
   struct i40e_q_vector {
@@ -278,7 +279,6 @@ git checkout v5.0-rc7
     struct xdp_umem *xsk_umem;
     struct zero_copy_allocator zca; /* ZC allocator anchor */
   } ____cacheline_internodealigned_in_smp;
-
 
   # i40e/i40e_txrx.c
   int i40e_napi_poll(struct napi_struct *napi, int budget)
