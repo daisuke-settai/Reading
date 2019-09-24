@@ -487,7 +487,7 @@ git checkout v5.0-rc7
   具体的なXDP実行の処理`i40e_run_xdp()`は後ほど確認します．
 9. Generic Receive Offload ~ L3の呼び出し
   - GROとは同一フローの隣り合った複数パケットを繋げられるところまで1つに繋いで上位のレイヤに渡すことでネットワークスタックの実行回数を減らす仕組みです.
-```c
+  ```c
   # /net/core/dev.c
   gro_result_t napi_gro_receive(struct napi_struct *napi, struct sk_buff *skb)
   {
@@ -646,7 +646,7 @@ git checkout v5.0-rc7
     else  # 特定のプロトコルを指定した場合はdev->ptype_specificかptype_baseです
       return pt->dev ? &pt->dev->ptype_specific : &ptype_base[ntohs(pt->type) & PTYPE_HASH_MASK];
   }
-```
+  ```
 10. AF_PACKETの場合
   - まずはコールバックが本当にpacket_rcvなのか確認します
   ソケットの作成はsocketシステムコールでカーネルにコンテキストスイッチした後にアドレスファミリ毎に登録されたソケット作成関数をコールバックで呼び出します.
@@ -655,18 +655,18 @@ git checkout v5.0-rc7
   - この仕組みをソースコードから読み解く順序として取り掛かりやすいのはおそらくsocketシステムコールから追いかけることだと思います.
   少しやってみましょう.
 
-```
-  # 何箇所か知識が必要な点があります.
-  # 1つ目はシステムコールはCPUのraxレジスタにシステムコール番号を設定してsyscall命令を発行する必要があるという点です.
-  # このシステムコール番号はアーキテクチャによってまちまちなのでglibcなどのライブラリが提供するシステムコールラッパを介してシステムコールを実行します.
-  # x86_64, gnu, linuxにおいて通常の関数呼び出しの引数は1番目から順に, (rdi, rsi, rdx, rcx, r8, r9, スタック)と設定されます.
-  # 一方システムコールは引数を6つまでしか渡すことができず, (rdi, rsi, rdx, r10, r8, r9)を用いて設定します.
-  # プログラムをコンパイルした際にシステムコールもラッパを使う限り関数なため, コンパイラは通常の関数呼び出しの順で機械語命令を生成します.
-  # そのため, システムコールラッパがrcxの値をr10にコピーしてraxにアーキテクチャ依存のシステムコール番号を設定し, syscall命令を発生させるコードを挟む必要があります.
-  # このようなバイナリレベルの規約をABI(Application Binary Interface)と呼びます.
-```
+  ```
+    # 何箇所か知識が必要な点があります.
+    # 1つ目はシステムコールはCPUのraxレジスタにシステムコール番号を設定してsyscall命令を発行する必要があるという点です.
+    # このシステムコール番号はアーキテクチャによってまちまちなのでglibcなどのライブラリが提供するシステムコールラッパを介してシステムコールを実行します.
+    # x86_64, gnu, linuxにおいて通常の関数呼び出しの引数は1番目から順に, (rdi, rsi, rdx, rcx, r8, r9, スタック)と設定されます.
+    # 一方システムコールは引数を6つまでしか渡すことができず, (rdi, rsi, rdx, r10, r8, r9)を用いて設定します.
+    # プログラムをコンパイルした際にシステムコールもラッパを使う限り関数なため, コンパイラは通常の関数呼び出しの順で機械語命令を生成します.
+    # そのため, システムコールラッパがrcxの値をr10にコピーしてraxにアーキテクチャ依存のシステムコール番号を設定し, syscall命令を発生させるコードを挟む必要があります.
+    # このようなバイナリレベルの規約をABI(Application Binary Interface)と呼びます.
+  ```
    - では, socketシステムコール先を見ていきましょう
-```c
+  ```c
   # システムコールはSYSCALL_DEFINEマクロを用いて作成されます.
   # net/socket.c
   SYSCALL_DEFINE3(socket, int, family, int, type, int, protocol)
@@ -696,7 +696,7 @@ git checkout v5.0-rc7
     *res = sock;
     return 0
   }
-```
+  ```
   またコールバックが出てきましたね.
   net_familiesへ登録している場所を探すことから始めます.
   もちろん具体的に的を絞ってIPv4もモジュールを眺めてもいいと思います.
@@ -926,194 +926,194 @@ git checkout v5.0-rc7
     return NET_RX_DROP;
   }
 
-int ip_route_input_noref(struct sk_buff *skb, __be32 daddr, __be32 saddr, u8 tos, struct net_device *dev)
-{
-	struct fib_result res;
-	int err;
-	tos &= IPTOS_RT_MASK;
-	rcu_read_lock();
-	err = ip_route_input_rcu(skb, daddr, saddr, tos, dev, &res);
-	rcu_read_unlock();
-	return err;
-}
+  int ip_route_input_noref(struct sk_buff *skb, __be32 daddr, __be32 saddr, u8 tos, struct net_device *dev)
+  {
+    struct fib_result res;
+    int err;
+    tos &= IPTOS_RT_MASK;
+    rcu_read_lock();
+    err = ip_route_input_rcu(skb, daddr, saddr, tos, dev, &res);
+    rcu_read_unlock();
+    return err;
+  }
 
-int ip_route_input_rcu(struct sk_buff *skb, __be32 daddr, __be32 saddr,
-		       u8 tos, struct net_device *dev, struct fib_result *res)
-{
-	return ip_route_input_slow(skb, daddr, saddr, tos, dev, res);
-}
+  int ip_route_input_rcu(struct sk_buff *skb, __be32 daddr, __be32 saddr,
+             u8 tos, struct net_device *dev, struct fib_result *res)
+  {
+    return ip_route_input_slow(skb, daddr, saddr, tos, dev, res);
+  }
 
-# ユニキャストの自分宛以外は省略します
-static int ip_route_input_slow(struct sk_buff *skb, __be32 daddr, __be32 saddr, u8 tos, struct net_device *dev, struct fib_result *res)
-{
-	struct in_device *in_dev = __in_dev_get_rcu(dev);
-	struct flow_keys *flkeys = NULL, _flkeys;
-	struct net    *net = dev_net(dev);
-	struct ip_tunnel_info *tun_info;
-	unsigned int	flags = 0;
-	u32		itag = 0;
-	struct rtable	*rth;
-	struct flowi4	fl4;
+  # ユニキャストの自分宛以外は省略します
+  static int ip_route_input_slow(struct sk_buff *skb, __be32 daddr, __be32 saddr, u8 tos, struct net_device *dev, struct fib_result *res)
+  {
+    struct in_device *in_dev = __in_dev_get_rcu(dev);
+    struct flow_keys *flkeys = NULL, _flkeys;
+    struct net    *net = dev_net(dev);
+    struct ip_tunnel_info *tun_info;
+    unsigned int	flags = 0;
+    u32		itag = 0;
+    struct rtable	*rth;
+    struct flowi4	fl4;
 
-	res->fi = NULL;
-	res->table = NULL;
-	fl4.flowi4_oif = 0; # FIBを引きためにフロー情報をまとめます
-	fl4.flowi4_iif = dev->ifindex;
-	fl4.flowi4_mark = skb->mark;
-	fl4.flowi4_tos = tos;
-	fl4.flowi4_scope = RT_SCOPE_UNIVERSE;
-	fl4.flowi4_flags = 0;
-	fl4.daddr = daddr;
-	fl4.saddr = saddr;
-	fl4.flowi4_uid = sock_net_uid(net, NULL);
-  fl4.flowi4_proto = 0;
-  fl4.fl4_sport = 0;
-  fl4.fl4_dport = 0;
+    res->fi = NULL;
+    res->table = NULL;
+    fl4.flowi4_oif = 0; # FIBを引きためにフロー情報をまとめます
+    fl4.flowi4_iif = dev->ifindex;
+    fl4.flowi4_mark = skb->mark;
+    fl4.flowi4_tos = tos;
+    fl4.flowi4_scope = RT_SCOPE_UNIVERSE;
+    fl4.flowi4_flags = 0;
+    fl4.daddr = daddr;
+    fl4.saddr = saddr;
+    fl4.flowi4_uid = sock_net_uid(net, NULL);
+    fl4.flowi4_proto = 0;
+    fl4.fl4_sport = 0;
+    fl4.fl4_dport = 0;
 
-	err = fib_lookup(net, &fl4, res, 0); # net名前空間に紐づいたFIBを検索し結果をresに設定します.
-	if (res->type == RTN_LOCAL) {
-		err = fib_validate_source(skb, saddr, daddr, tos, 0, dev, in_dev, &itag);
-		goto local_input; # 自分宛ならlocal_inputにジャンプします
-	}
+    err = fib_lookup(net, &fl4, res, 0); # net名前空間に紐づいたFIBを検索し結果をresに設定します.
+    if (res->type == RTN_LOCAL) {
+      err = fib_validate_source(skb, saddr, daddr, tos, 0, dev, in_dev, &itag);
+      goto local_input; # 自分宛ならlocal_inputにジャンプします
+    }
 
-	if (!IN_DEV_FORWARD(in_dev)) { # 自分宛でなくip_forwardパラメータが無効の場合はエラーを発生させます. linuxの初期値は無効です.
-		err = -EHOSTUNREACH;
-		goto no_route;
-	}
+    if (!IN_DEV_FORWARD(in_dev)) { # 自分宛でなくip_forwardパラメータが無効の場合はエラーを発生させます. linuxの初期値は無効です.
+      err = -EHOSTUNREACH;
+      goto no_route;
+    }
 
-make_route:
-  # 転送パケットの場合, skb->_skb_refdstにコールバックip_forward()を含んだ構造体dst_entryへのポインタが設定されます
-	err = ip_mkroute_input(skb, res, in_dev, daddr, saddr, tos, flkeys);
-out:	return err;
+  make_route:
+    # 転送パケットの場合, skb->_skb_refdstにコールバックip_forward()を含んだ構造体dst_entryへのポインタが設定されます
+    err = ip_mkroute_input(skb, res, in_dev, daddr, saddr, tos, flkeys);
+  out:	return err;
 
-local_input:
-  # FIBを引いた結果からstruct rtableを生成します. rtable->dstにコールバックが設定されます.
-	rth = rt_dst_alloc(l3mdev_master_dev_rcu(dev) ? : net->loopback_dev, flags | RTCF_LOCAL, res->type, IN_DEV_CONF_GET(in_dev, NOPOLICY), false, do_cache);
-	rth->dst.output= ip_rt_bug; # local_inのコンテクストではoutputコールバックは呼ばれないためバグであることを通知する関数を登録しておきます.
-	rth->rt_is_input = 1;
+  local_input:
+    # FIBを引いた結果からstruct rtableを生成します. rtable->dstにコールバックが設定されます.
+    rth = rt_dst_alloc(l3mdev_master_dev_rcu(dev) ? : net->loopback_dev, flags | RTCF_LOCAL, res->type, IN_DEV_CONF_GET(in_dev, NOPOLICY), false, do_cache);
+    rth->dst.output= ip_rt_bug; # local_inのコンテクストではoutputコールバックは呼ばれないためバグであることを通知する関数を登録しておきます.
+    rth->rt_is_input = 1;
 
-	if (res->type == RTN_UNREACHABLE) {
-		rth->dst.input= ip_error; # FIBがUNREACHと判断した場合はコールバックにip_errorを設定し, MIBの更新とicmpエラーメッセージを送信するようにします.
-		rth->dst.error= -err;
-		rth->rt_flags 	&= ~RTCF_LOCAL;
-	}
+    if (res->type == RTN_UNREACHABLE) {
+      rth->dst.input= ip_error; # FIBがUNREACHと判断した場合はコールバックにip_errorを設定し, MIBの更新とicmpエラーメッセージを送信するようにします.
+      rth->dst.error= -err;
+      rth->rt_flags 	&= ~RTCF_LOCAL;
+    }
 
-	skb_dst_set(skb, &rth->dst); # skb->_skb_refdstにコールバック関数を含む構造体へのポインタを設定します．
-	err = 0;
-	goto out;
-}
+    skb_dst_set(skb, &rth->dst); # skb->_skb_refdstにコールバック関数を含む構造体へのポインタを設定します．
+    err = 0;
+    goto out;
+  }
 
-struct rtable *rt_dst_alloc(struct net_device *dev, unsigned int flags, u16 type, bool nopolicy, bool noxfrm, bool will_cache)
-{
-	struct rtable *rt;
-	rt = dst_alloc(&ipv4_dst_ops, dev, 1, DST_OBSOLETE_FORCE_CHK, (will_cache ? 0 : DST_HOST) | (nopolicy ? DST_NOPOLICY : 0) | (noxfrm ? DST_NOXFRM : 0));
-	if (rt) {
-		rt->rt_genid = rt_genid_ipv4(dev_net(dev));
-		rt->rt_flags = flags;
-		rt->rt_type = type;
-		rt->rt_is_input = 0;
-		rt->rt_iif = 0;
-		rt->rt_pmtu = 0;
-		rt->rt_mtu_locked = 0;
-		rt->rt_gateway = 0;
-		rt->rt_uses_gateway = 0;
-		INIT_LIST_HEAD(&rt->rt_uncached);
-		rt->dst.output = ip_output;
-		if (flags & RTCF_LOCAL)
-			rt->dst.input = ip_local_deliver; # これが今回のコールバック関数です.
-	}
-	return rt;
-}
+  struct rtable *rt_dst_alloc(struct net_device *dev, unsigned int flags, u16 type, bool nopolicy, bool noxfrm, bool will_cache)
+  {
+    struct rtable *rt;
+    rt = dst_alloc(&ipv4_dst_ops, dev, 1, DST_OBSOLETE_FORCE_CHK, (will_cache ? 0 : DST_HOST) | (nopolicy ? DST_NOPOLICY : 0) | (noxfrm ? DST_NOXFRM : 0));
+    if (rt) {
+      rt->rt_genid = rt_genid_ipv4(dev_net(dev));
+      rt->rt_flags = flags;
+      rt->rt_type = type;
+      rt->rt_is_input = 0;
+      rt->rt_iif = 0;
+      rt->rt_pmtu = 0;
+      rt->rt_mtu_locked = 0;
+      rt->rt_gateway = 0;
+      rt->rt_uses_gateway = 0;
+      INIT_LIST_HEAD(&rt->rt_uncached);
+      rt->dst.output = ip_output;
+      if (flags & RTCF_LOCAL)
+        rt->dst.input = ip_local_deliver; # これが今回のコールバック関数です.
+    }
+    return rt;
+  }
 
-int ip_local_deliver(struct sk_buff *skb)
-{
-	struct net *net = dev_net(skb->dev);
-  # IPフラグメントが発生していた場合はnet->ipv4.frags.rhashtableで管理される同一フローのフラグメントキューに挿入します
-	if (ip_is_fragment(ip_hdr(skb))) {
-		if (ip_defrag(net, skb, IP_DEFRAG_LOCAL_DELIVER)) # フラグメントが揃った場合は0を返し, 後続の処理を行います.
-			return 0;
-	}
-	return NF_HOOK(NFPROTO_IPV4, NF_INET_LOCAL_IN, net, NULL, skb, skb->dev, NULL, ip_local_deliver_finish);
-}
+  int ip_local_deliver(struct sk_buff *skb)
+  {
+    struct net *net = dev_net(skb->dev);
+    # IPフラグメントが発生していた場合はnet->ipv4.frags.rhashtableで管理される同一フローのフラグメントキューに挿入します
+    if (ip_is_fragment(ip_hdr(skb))) {
+      if (ip_defrag(net, skb, IP_DEFRAG_LOCAL_DELIVER)) # フラグメントが揃った場合は0を返し, 後続の処理を行います.
+        return 0;
+    }
+    return NF_HOOK(NFPROTO_IPV4, NF_INET_LOCAL_IN, net, NULL, skb, skb->dev, NULL, ip_local_deliver_finish);
+  }
 
-static int ip_local_deliver_finish(struct net *net, struct sock *sk, struct sk_buff *skb)
-{
-	__skb_pull(skb, skb_network_header_len(skb)); # L3の処理も終わりですので, skb->dataをパケット中の次のヘッダに合わせておきます
-	rcu_read_lock();
-	ip_protocol_deliver_rcu(net, skb, ip_hdr(skb)->protocol);
-	rcu_read_unlock();
+  static int ip_local_deliver_finish(struct net *net, struct sock *sk, struct sk_buff *skb)
+  {
+    __skb_pull(skb, skb_network_header_len(skb)); # L3の処理も終わりですので, skb->dataをパケット中の次のヘッダに合わせておきます
+    rcu_read_lock();
+    ip_protocol_deliver_rcu(net, skb, ip_hdr(skb)->protocol);
+    rcu_read_unlock();
 
-	return 0;
-}
+    return 0;
+  }
 
-void ip_protocol_deliver_rcu(struct net *net, struct sk_buff *skb, int protocol)
-{
-	const struct net_protocol *ipprot;
-	int raw, ret;
+  void ip_protocol_deliver_rcu(struct net *net, struct sk_buff *skb, int protocol)
+  {
+    const struct net_protocol *ipprot;
+    int raw, ret;
 
-resubmit:
-	raw = raw_local_deliver(skb, protocol); # AF_INET(IPv4)で作成された全てのRAWソケットにパケットを配送します
-	ipprot = rcu_dereference(inet_protos[protocol]); # L4プロトコルコールバックを管理するinet_protos変数から今回のパケットに対応するコールバックを取得します
-	if (ipprot) {
-		ret = ipprot->handler(skb); # コールバックを実行してL4の処理に入ります
-		if (ret < 0) {
-			protocol = -ret;
-			goto resubmit; # どうやらL4の処理が負の値を返したら, その分だけプロトコル番号を増加させて再びコールバックの取得, 実行をするようですね
-		}
-		__IP_INC_STATS(net, IPSTATS_MIB_INDELIVERS);
-	} else {
-		if (!raw) { # RAWソケット以外でL4のハンドラが見つからないのはエラーですのでICMPパケットを送信します
-			if (xfrm4_policy_check(NULL, XFRM_POLICY_IN, skb)) {
-				__IP_INC_STATS(net, IPSTATS_MIB_INUNKNOWNPROTOS);
-				icmp_send(skb, ICMP_DEST_UNREACH,
-					  ICMP_PROT_UNREACH, 0);
-			}
-			kfree_skb(skb);
-		} else {
-			__IP_INC_STATS(net, IPSTATS_MIB_INDELIVERS);
-			consume_skb(skb); # skbへの参照がなければ解放します
-		}
-	}
-}
-```
+  resubmit:
+    raw = raw_local_deliver(skb, protocol); # AF_INET(IPv4)で作成された全てのRAWソケットにパケットを配送します
+    ipprot = rcu_dereference(inet_protos[protocol]); # L4プロトコルコールバックを管理するinet_protos変数から今回のパケットに対応するコールバックを取得します
+    if (ipprot) {
+      ret = ipprot->handler(skb); # コールバックを実行してL4の処理に入ります
+      if (ret < 0) {
+        protocol = -ret;
+        goto resubmit; # どうやらL4の処理が負の値を返したら, その分だけプロトコル番号を増加させて再びコールバックの取得, 実行をするようですね
+      }
+      __IP_INC_STATS(net, IPSTATS_MIB_INDELIVERS);
+    } else {
+      if (!raw) { # RAWソケット以外でL4のハンドラが見つからないのはエラーですのでICMPパケットを送信します
+        if (xfrm4_policy_check(NULL, XFRM_POLICY_IN, skb)) {
+          __IP_INC_STATS(net, IPSTATS_MIB_INUNKNOWNPROTOS);
+          icmp_send(skb, ICMP_DEST_UNREACH,
+              ICMP_PROT_UNREACH, 0);
+        }
+        kfree_skb(skb);
+      } else {
+        __IP_INC_STATS(net, IPSTATS_MIB_INDELIVERS);
+        consume_skb(skb); # skbへの参照がなければ解放します
+      }
+    }
+  }
+  ```
 
 12. IPv4におけるL4以降の処理
   - L4の処理は`inet_protos[]`に登録されたコールバックで始まることがわかりました.
   では何が登録されているのでしょうか.
   `net_families`を見つけた時のように探してみると`inet_add_protocol((const struct net_protocol *prot, unsigned char protocol)`で登録していることがわかります．
-```c
-# net/ipv4/protocol.c
-struct net_protocol __rcu *inet_protos[MAX_INET_PROTOS] __read_mostly;
-int inet_add_protocol(const struct net_protocol *prot, unsigned char protocol)
-{
-	return !cmpxchg((const struct net_protocol **)&inet_protos[protocol], NULL, prot) ? 0 : -1; # 第1引数と, 第二引数を比較して一致した場合のみ第3引数と値を第1引数に設定するアトミック命令です.
-}
-```
+  ```c
+  # net/ipv4/protocol.c
+  struct net_protocol __rcu *inet_protos[MAX_INET_PROTOS] __read_mostly;
+  int inet_add_protocol(const struct net_protocol *prot, unsigned char protocol)
+  {
+    return !cmpxchg((const struct net_protocol **)&inet_protos[protocol], NULL, prot) ? 0 : -1; # 第1引数と, 第二引数を比較して一致した場合のみ第3引数と値を第1引数に設定するアトミック命令です.
+  }
+  ```
   - TCPに関してのみみていくことにしましょう
-```c
-# net/ipv4/af_inet.c
-static struct net_protocol tcp_protocol = {
-	.early_demux	=	tcp_v4_early_demux,
-	.early_demux_handler =  tcp_v4_early_demux,
-	.handler	=	tcp_v4_rcv, # 今回追っていた受信用のL4ハンドラです
-	.err_handler	=	tcp_v4_err,
-	.no_policy	=	1,
-	.netns_ok	=	1,
-	.icmp_strict_tag_validation = 1,
-};
-static int __init inet_init(void)
-{
-	if (inet_add_protocol(&tcp_protocol, IPPROTO_TCP) < 0)
-    pr_crit("%s: Cannot add TCP protocol\n", __func__);
-}
-fs_initcall(inet_init);
-```
+  ```c
+  # net/ipv4/af_inet.c
+  static struct net_protocol tcp_protocol = {
+    .early_demux	=	tcp_v4_early_demux,
+    .early_demux_handler =  tcp_v4_early_demux,
+    .handler	=	tcp_v4_rcv, # 今回追っていた受信用のL4ハンドラです
+    .err_handler	=	tcp_v4_err,
+    .no_policy	=	1,
+    .netns_ok	=	1,
+    .icmp_strict_tag_validation = 1,
+  };
+  static int __init inet_init(void)
+  {
+    if (inet_add_protocol(&tcp_protocol, IPPROTO_TCP) < 0)
+      pr_crit("%s: Cannot add TCP protocol\n", __func__);
+  }
+  fs_initcall(inet_init);
+  ```
   - 次に`tcp_v4_rcv()`によって配送先のソケットが特定され, ソケットの受信キューにsk_buffを挿入する処理を見ていきます.
-```c
+  ```c
 
 
 
-```
+  ```
   - ユーザメモリへのパケット転送はrecvシステムコールなどから始まり, 受信キューをチェック, sk_buffがあればユーザメモリにコピーするという手順を踏みます.
   flagに`MSG_DONTWAIT`が設定されている場合は, キューチェックで何もなければユーザアプリケーションに`sysret`命令を用いて復帰します.
   通常はブロッキング処理ですので,
