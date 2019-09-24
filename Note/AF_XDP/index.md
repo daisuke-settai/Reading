@@ -479,6 +479,7 @@ git checkout v5.0-rc7
     return skb;
   }
   ```
+
   - XDP処理がskbアロケートより前に動作することがわかりましたでしょうか．
   具体的なXDP実行の処理`i40e_run_xdp()`は後ほど確認します．
 
@@ -644,6 +645,7 @@ git checkout v5.0-rc7
       return pt->dev ? &pt->dev->ptype_specific : &ptype_base[ntohs(pt->type) & PTYPE_HASH_MASK];
   }
   ```
+
 10. AF_PACKETの場合
   - まずはコールバックが本当にpacket_rcvなのか確認します
   ソケットの作成はsocketシステムコールでカーネルにコンテキストスイッチした後にアドレスファミリ毎に登録されたソケット作成関数をコールバックで呼び出します.
