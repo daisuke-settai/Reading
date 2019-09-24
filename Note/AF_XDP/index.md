@@ -238,6 +238,7 @@ git checkout v5.0-rc7
   GRO(Generic Receive Offload)の開始までを見ていきます．
   ここのRXの処理中にXDPのドライバレベルフックが存在します．
   後半でもう一つのGeneric XDP(NICがXDPをサポートしない場合のXDPフック)が登場します．
+
   ```c
   // i40e/i40e.h
   struct i40e_q_vector {
@@ -315,9 +316,9 @@ git checkout v5.0-rc7
 	if (likely(napi_complete_done(napi, work_done))) // ポーリング処理が終わったらpollをnapiリストから除外します
 		i40e_update_enable_itr(vsi, q_vector);  // 無効にした割り込み信号を有効にしている(?)
   }
-  ```
+```
   - まずは簡単にtx_ringに関する上の処理を見ます
-  ```c
+```c
   # i40e/i40e_txrx.c
   static bool i40e_clean_tx_irq(struct i40e_vsi *vsi, struct i40e_ring *tx_ring, int napi_budget)
   {
@@ -478,14 +479,14 @@ git checkout v5.0-rc7
     rx_buffer->page_offset ^= truesize;
     return skb;
   }
-  ```
+```
 
   - XDP処理がskbアロケートより前に動作することがわかりましたでしょうか．
   具体的なXDP実行の処理`i40e_run_xdp()`は後ほど確認します．
 
 9. Generic Receive Offload ~ L3の呼び出し
   - GROとは同一フローの隣り合った複数パケットを繋げられるところまで1つに繋いで上位のレイヤに渡すことでネットワークスタックの実行回数を減らす仕組みです.
-  ```c
+```c
   # /net/core/dev.c
   gro_result_t napi_gro_receive(struct napi_struct *napi, struct sk_buff *skb)
   {
