@@ -117,28 +117,28 @@ git checkout v5.0-rc7
   - この処理はハードウェア割り込みのコンテキストで実行されます．(FLIH)
   このままTCP/IPのような重い処理に入るのは前述の通り好ましくないためソフトウェア割り込みをスケジュールし割り込みハンドラを終了します.
   ```c
-  # i40e/i40e_main.c
+  // i40e/i40e_main.c
   static irqreturn_t i40e_intr(int irq, void *data)
   {
     // ...
     napi_schedule_irqoff(&q_vector->napi)
     // ...
   }
-  # /include//linux/netdevice.h
+  // /include//linux/netdevice.h
   static inline void napi_schedule_irqoff(struct napi_struct *n)
   {
-	  if (napi_schedule_prep(n)) # NAPIが動作中でないか確認
+	  if (napi_schedule_prep(n)) // NAPIが動作中でないか確認
 		  __napi_schedule_irqoff(n);
   }
-  # net//core/dev.c
+  // net//core/dev.c
   void __napi_schedule_irqoff(struct napi_struct *n)
   {
-    ____napi_schedule(this_cpu_ptr(&softnet_data), n); # CPU毎に存在するデータ構造の1つであるsoftnet_data変数を取得
+    ____napi_schedule(this_cpu_ptr(&softnet_data), n); // CPU毎に存在するデータ構造の1つであるsoftnet_data変数を取得
   }
   static inline void ____napi_schedule(struct softnet_data *sd, struct napi_struct *napi)
   {
-    list_add_tail(&napi->poll_list, &sd->poll_list);  # NICにおける割り込み信号はCPU毎に分けて処理しているため, CPU毎のデータ構造が必要
-    __raise_softirq_irqoff(NET_RX_SOFTIRQ); # NET_RX_SOFTIRQ ソフトウェア割り込みを発生
+    list_add_tail(&napi->poll_list, &sd->poll_list);  // NICにおける割り込み信号はCPU毎に分けて処理しているため, CPU毎のデータ構造が必要
+    __raise_softirq_irqoff(NET_RX_SOFTIRQ); // NET_RX_SOFTIRQ ソフトウェア割り込みを発生
   }
   ```
   - ここでnapiというワードが登場します.
@@ -153,13 +153,13 @@ git checkout v5.0-rc7
   - NET_RX_SOFTIRQに対応したハンドラ`net_rx_action`が実行されます.
   ドライバ毎のNAPIポーリング関数実行までの処理をまずは追ってみましょう.
   ```c
-  # net/core/dev.c
+  // net/core/dev.c
   static int __init net_dev_init(void)
   {
-    open_softirq(NET_RX_SOFTIRQ, net_rx_action); # NET_RX_SOFTIRQに対応するハンドラnet_rx_actionが登録されています
+    open_softirq(NET_RX_SOFTIRQ, net_rx_action); // NET_RX_SOFTIRQに対応するハンドラnet_rx_actionが登録されています
   }
-  subsys_initcall(net_dev_init); # subsys_initcallマクロによってnet_dev_init()はシステム起動時の初期化処理に組み込まれます.
-  # マクロ展開と初期化処理への追加部分が気になる場合はご自身でコードを読むか, コメント頂ければ書かせて頂きます.(すでにまとめられた記事もありそうですね)
+  subsys_initcall(net_dev_init); // subsys_initcallマクロによってnet_dev_init()はシステム起動時の初期化処理に組み込まれます.
+  // マクロ展開と初期化処理への追加部分が気になる場合はご自身でコードを読むか, コメント頂ければ書かせて頂きます.(すでにまとめられた記事もありそうですね)
   static __latent_entropy void net_rx_action(struct softirq_action *h)
   {
     struct softnet_data *sd = this_cpu_ptr(&softnet_data);
@@ -172,26 +172,26 @@ git checkout v5.0-rc7
   static int napi_poll(struct napi_struct *n, struct list_head *repoll)
   {
     weight = n->weight;
-    work = n->poll(n, weight);  # 読むのがしんどくなるポイントその１だと思います: kernelはコールバックが多くて何に繋がるのかわかりにくい..
-    # このpollは上述のapi_schedule_irqoff(&q_vector->napi)のq_vectorに登録された関数ポインタです
-    # ではq_vectorへの登録処理はどこで存在し, それはいつ実行されるのでしょうか
+    work = n->poll(n, weight);  // 読むのがしんどくなるポイントその１だと思います: kernelはコールバックが多くて何に繋がるのかわかりにくい..
+    // このpollは上述のapi_schedule_irqoff(&q_vector->napi)のq_vectorに登録された関数ポインタです
+    // ではq_vectorへの登録処理はどこで存在し, それはいつ実行されるのでしょうか
   }
-  # i40e/i40e_main.c
+  // i40e/i40e_main.c
   static int i40e_vsi_alloc_q_vector(struct i40e_vsi *vsi, int v_idx, int cpu)
   {
     struct i40e_q_vector *q_vector;
     q_vector->vsi = vsi;
     q_vector->v_idx = v_idx;
     if (vsi->netdev)
-      netif_napi_add(vsi->netdev, &q_vector->napi, i40e_napi_poll, NAPI_POLL_WEIGHT); # i40e_napi_pollがq_vector->napiに登録される
+      netif_napi_add(vsi->netdev, &q_vector->napi, i40e_napi_poll, NAPI_POLL_WEIGHT); // i40e_napi_pollがq_vector->napiに登録される
   }
-  # net/core/dev.c
+  // net/core/dev.c
   void netif_napi_add(struct net_device *dev, struct napi_struct *napi, int (*poll)(struct napi_struct *, int), int weight)
   {
     napi->poll = poll;
     napi->weight = weight;
   }
-  # i40e/i40e_main.c
+  // i40e/i40e_main.c
   static int i40e_vsi_setup_vectors(struct i40e_vsi *vsi)
   {
     ret = i40e_vsi_alloc_q_vectors(vsi);
@@ -215,7 +215,7 @@ git checkout v5.0-rc7
   static struct pci_driver i40e_driver = {
         .name     = i40e_driver_name,
         .id_table = i40e_pci_tbl,
-        .probe    = i40e_probe, # システム起動時などにpciデバイスリストに登録されている全デバイスのprobe()が実行される
+        .probe    = i40e_probe, // システム起動時などにpciデバイスリストに登録されている全デバイスのprobe()が実行される
         .remove   = i40e_remove,
         .driver   = {
                 .pm = &i40e_pm_ops,
@@ -228,7 +228,7 @@ git checkout v5.0-rc7
   {
     return pci_register_driver(&i40e_driver);
   }
-  module_init(i40e_init_module); # マクロ展開によって, システム起動時にi40e_init_module()を実行するように設定
+  module_init(i40e_init_module); // マクロ展開によって, システム起動時にi40e_init_module()を実行するように設定
   ```
   - 以上の通り`n->poll(n, weight)`で実行される関数は`i40e_napi_poll`であることがわかりました.
   ここから先はデバイスドライバによるデータリンク層の処理, カーネルネットワークスタックによるネットワーク/トランスポート層の処理を経てユーザアプリケーションにrecvされるために特定のソケットのキューにパケットバッファへのポインタを設定するのみです．(カーネルサイドの処理としては)
@@ -239,7 +239,7 @@ git checkout v5.0-rc7
   ここのRXの処理中にXDPのドライバレベルフックが存在します．
   後半でもう一つのGeneric XDP(NICがXDPをサポートしない場合のXDPフック)が登場します．
   ```c
-  # i40e/i40e.h
+  // i40e/i40e.h
   struct i40e_q_vector {
     struct i40e_vsi *vsi;
     u16 v_idx;		/* index in the vsi->q_vector array. */
@@ -257,7 +257,7 @@ git checkout v5.0-rc7
     u16 count;
   };
 
-  # i40e/i40e_txrx.h
+  // i40e/i40e_txrx.h
   struct i40e_ring {
 	  struct i40e_ring *next;		/* pointer to next ring in q_vector */
 	  void *desc;			/* Descriptor ring memory */
@@ -279,41 +279,41 @@ git checkout v5.0-rc7
     struct zero_copy_allocator zca; /* ZC allocator anchor */
   } ____cacheline_internodealigned_in_smp;
 
-  # i40e/i40e_txrx.c
+  // i40e/i40e_txrx.c
   int i40e_napi_poll(struct napi_struct *napi, int budget)
   {
-  # i40e_q_vector->napiの関係にあり, napiのアドレスからi40e_q_vector構造体の先頭アドレスを計算
-  ## include//linux/kernel.h\
-  ## # define container_of_safe(ptr, type, member) ({				\
-  ##      void *__mptr = (void *)(ptr);					\
-  ##      ((type *)(__mptr - offsetof(type, member))); }
+  // i40e_q_vector->napiの関係にあり, napiのアドレスからi40e_q_vector構造体の先頭アドレスを計算
+  //   include//linux/kernel.h\
+  //   # define container_of_safe(ptr, type, member) ({				\
+  //        void *__mptr = (void *)(ptr);					\
+  //        ((type *)(__mptr - offsetof(type, member))); }
 	struct i40e_q_vector *q_vector = container_of(napi, struct i40e_q_vector, napi);
 	struct i40e_vsi *vsi = q_vector->vsi;
 	struct i40e_ring *ring;
 
 	i40e_for_each_ring(ring, q_vector->tx) {
-  # 送信済みのTXリング中のデータを処理します
-  # TXリングからディスクリプタを取り出し, パケットバッファを解放します.(そのパケットが他から参照されていない場合ですが)
-  # DMAマッピングを解除します, NAPIにおけるcompletion割り込みの処理です
-		bool wd = ring->xsk_umem ?  # キューにたいしてAF_XDPソケットが機能している場合xsk_umemに値が設定されます
-			  i40e_clean_xdp_tx_irq(vsi, ring, budget) : # AF_XDPのデータパスです, XDPフックポイントそのものではありません．
-			  i40e_clean_tx_irq(vsi, ring, budget); # 通常のデータパスです
+  // 送信済みのTXリング中のデータを処理します
+  // TXリングからディスクリプタを取り出し, パケットバッファを解放します.(そのパケットが他から参照されていない場合ですが)
+  // DMAマッピングを解除します, NAPIにおけるcompletion割り込みの処理です
+		bool wd = ring->xsk_umem ?  // キューにたいしてAF_XDPソケットが機能している場合xsk_umemに値が設定されます
+			  i40e_clean_xdp_tx_irq(vsi, ring, budget) : // AF_XDPのデータパスです, XDPフックポイントそのものではありません．
+			  i40e_clean_tx_irq(vsi, ring, budget); // 通常のデータパスです
 	}
 
-  # i40e_q_vectorはcpumask_t affinity_maskによって動作するCPUを制限し,
-  # struct i40e_ring_container rx には複数のringが連なっています
-  # コアが多ければ1リングペアを1コアに割り当てるが, そうでない場合同一コアに複数のリングペアを割り当てることもできます
-  # その場合, budget: つまり1回のポーリングで処理するパケット数はq_vector単位で共有されるため公平に割り当てます
+  // i40e_q_vectorはcpumask_t affinity_maskによって動作するCPUを制限し,
+  // struct i40e_ring_container rx には複数のringが連なっています
+  // コアが多ければ1リングペアを1コアに割り当てるが, そうでない場合同一コアに複数のリングペアを割り当てることもできます
+  // その場合, budget: つまり1回のポーリングで処理するパケット数はq_vector単位で共有されるため公平に割り当てます
 	budget_per_ring = max(budget/q_vector->num_ringpairs, 1);
 
 	i40e_for_each_ring(ring, q_vector->rx) {
 		int cleaned = ring->xsk_umem ?
-			      i40e_clean_rx_irq_zc(ring, budget_per_ring) : # txと同様でAF_XDPのデータパスです
-			      i40e_clean_rx_irq(ring, budget_per_ring); # 通常のデータパスです
+			      i40e_clean_rx_irq_zc(ring, budget_per_ring) : // txと同様でAF_XDPのデータパスです
+			      i40e_clean_rx_irq(ring, budget_per_ring); // 通常のデータパスです
 	}
 
-	if (likely(napi_complete_done(napi, work_done))) # ポーリング処理が終わったらpollをnapiリストから除外します
-		i40e_update_enable_itr(vsi, q_vector);  # 無効にした割り込み信号を有効にしている(?)
+	if (likely(napi_complete_done(napi, work_done))) // ポーリング処理が終わったらpollをnapiリストから除外します
+		i40e_update_enable_itr(vsi, q_vector);  // 無効にした割り込み信号を有効にしている(?)
   }
   ```
   - まずは簡単にtx_ringに関する上の処理を見ます
