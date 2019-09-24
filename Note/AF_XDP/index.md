@@ -110,7 +110,6 @@ git checkout v5.0-rc7
   # i40e/i40e_main.c 割り込みハンドラの登録
   err = request_irq(pf->msix_entries[0].vector, i40e_intr, 0, pf->int_name, pf);
   ```
-
   - 大体のOSにおいて割り込みには2つのレベルが存在し, FLIH(First-Level Interrupt Handler)の実行中, 他の割り込みは無視される.
   SLIH(Second-Level Interrupt Handler)の実行中は他のプロセスと同等にスケジューリングされ割り込みも受け付ける.
   レベルを分けるのはシステムのハードウェアに対する反応性を向上させるためなどに理由による.
