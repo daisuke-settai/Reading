@@ -23,7 +23,7 @@
 |   3 |               |    41 |      ed | [順序回路]()                                  | [Slide]()                                                                   |
 |   4 |               |    59 | moririn | [機械語]()                                    | [Slide](https://drive.google.com/file/d/1gnUIEfD_INr7b-wOVPbBIPlpYb3cseei/view?usp=sharing) |
 |   5 |      3/20 (1) |    85 |    cmer | [コンピュータアーキテクチャ]()                | [Slide](https://drive.google.com/open?id=1__d93n2fLFx4yTMzQRrjB9ssRgpi1KJP) |
-|   6 |      3/20 (2) |   111 |      ed | [アセンブラ]()                                | [Slide]()                                                                   |
+|   6 |      3/20 (2) |   111 |      ed | [アセンブラ]()                                | [Slide](https://drive.google.com/file/d/1H6bj335h6h2lWd6lT2lOwrzEoTdB2IxO/view?usp=sharing)                                                                   |
 |   7 |      3/24 (1) |   133 |     zak | [バーチャルマシン \#1 : スタック操作]()       | [Slide]()                                                                   |
 |   8 |      3/30 (1) |   167 |    siizu| [バーチャルマシン \#2 : プログラム制御]()     | [Slide]()                                                                   |
 |   9 |      3/30 (2) |   191 | moririn | [高水準言語]()                                | [Slide]()                                                                   |
