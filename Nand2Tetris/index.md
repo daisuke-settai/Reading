@@ -1,5 +1,5 @@
 ## コンピュータシステムの理論と実装 ―モダンなコンピュータの作り方 (Nand2Tetris)
-#### Author:  
+#### Author:
 ニッサン,ノーム  
 エルサレム・ヘブライ大学(イスラエルの国立大学)のComputer Science and Engineering研究所の教授
   
