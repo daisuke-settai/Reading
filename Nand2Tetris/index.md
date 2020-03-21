@@ -16,20 +16,20 @@
 
 ### Schedule
 
-| No  | Date (Period) | Pages | Name    | Title (Note)                                  | Slide                                                                       |
-|:---:|:-------------:|:-----:|:-------:|-----------------------------------------------|-----------------------------------------------------------------------------|
-|   1 |               |     1 |     zak | [ブール論理]()                                | [Slide]()                                                                   |
-|   2 |               |    27 |    sizu | [ブール算術]()                                | [Slide]()                                                                   |
-|   3 |               |    41 |      ed | [順序回路]()                                  | [Slide]()                                                                   |
-|   4 |               |    59 | moririn | [機械語]()                                    | [Slide](https://drive.google.com/file/d/1gnUIEfD_INr7b-wOVPbBIPlpYb3cseei/view?usp=sharing) |
-|   5 |      3/20 (1) |    85 |    cmer | [コンピュータアーキテクチャ]()                | [Slide](https://drive.google.com/open?id=1__d93n2fLFx4yTMzQRrjB9ssRgpi1KJP) |
-|   6 |      3/20 (2) |   111 |      ed | [アセンブラ]()                                | [Slide](https://drive.google.com/file/d/1H6bj335h6h2lWd6lT2lOwrzEoTdB2IxO/view?usp=sharing)                                                                   |
-|   7 |      3/24 (1) |   133 |     zak | [バーチャルマシン \#1 : スタック操作]()       | [Slide](https://docs.google.com/presentation/d/1Vy5_SSy7CXb3QxGTXdTZTRBjh0lVdSJ6j14WwYeh3HA/edit?usp=sharing)                                                                   |
-|   8 |      3/30 (1) |   167 |    siizu| [バーチャルマシン \#2 : プログラム制御]()     | [Slide]()                                                                   |
-|   9 |      3/30 (2) |   191 | moririn | [高水準言語]()                                | [Slide]()                                                                   |
-|  10 |      3/30 (2) |   223 | moririn | [コンパイラ \#1 : 構文解析]()                 | [Slide]()                                                                   |
-|  11 |               |   249 |    nora | [コンパイラ \#2 : コード生成]()               | [Slide]()                                                                   |
-|  12 |               |   277 |    cmer | [オペレーティングシステム]()                  | [Slide]()                                                                   |
-|  13 |               |   315 |         | [さらに先へ]()                                | [Slide]()                                                                   |
+| No  | Date (Period) | Pages | Name    | Title (Note)                                  |
+|:---:|:-------------:|:-----:|:-------:|-----------------------------------------------|
+|   1 |               |     1 |     zak | [ブール論理]() |
+|   2 |               |    27 |    sizu | [ブール算術]() |
+|   3 |               |    41 |      ed | [順序回路]() |
+|   4 |               |    59 | moririn | [機械語]() |
+|   5 |      3/20 (1) |    85 |    cmer | [コンピュータアーキテクチャ](https://drive.google.com/open?id=1__d93n2fLFx4yTMzQRrjB9ssRgpi1KJP) |
+|   6 |      3/20 (2) |   111 |      ed | [アセンブラ](https://drive.google.com/file/d/1H6bj335h6h2lWd6lT2lOwrzEoTdB2IxO/view?usp=sharing) |
+|   7 |      3/24 (1) |   133 |     zak | [バーチャルマシン \#1 : スタック操作](https://docs.google.com/presentation/d/1Vy5_SSy7CXb3QxGTXdTZTRBjh0lVdSJ6j14WwYeh3HA/edit?usp=sharing) |
+|   8 |      3/30 (1) |   167 |    sizu | [バーチャルマシン \#2 : プログラム制御]() |
+|   9 |      3/30 (2) |   191 | moririn | [高水準言語](https://drive.google.com/open?id=18WEGFf9OxMRNOzXrXSeEJuxDEBzMxCJW) |
+|  10 |      3/30 (2) |   223 | moririn | [コンパイラ \#1 : 構文解析](https://drive.google.com/file/d/1Y5QK1LehHJrfREYG14lnxiAdrXnQZ9Pt/view?usp=sharing) |
+|  11 |               |   249 |    nora | [コンパイラ \#2 : コード生成]() |
+|  12 |               |   277 |    cmer | [オペレーティングシステム]() |
+|  13 |               |   315 |         | [さらに先へ]() |
 
 [Top Page](../index.md)
