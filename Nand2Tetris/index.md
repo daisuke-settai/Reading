@@ -25,7 +25,7 @@
 |   5 |      3/20 (1) |    85 |    cmer | [コンピュータアーキテクチャ](https://drive.google.com/open?id=1__d93n2fLFx4yTMzQRrjB9ssRgpi1KJP) |
 |   6 |      3/20 (2) |   111 |      ed | [アセンブラ](https://drive.google.com/file/d/1H6bj335h6h2lWd6lT2lOwrzEoTdB2IxO/view?usp=sharing) |
 |   7 |      3/24 (1) |   133 |     zak | [バーチャルマシン \#1 : スタック操作](https://docs.google.com/presentation/d/1Vy5_SSy7CXb3QxGTXdTZTRBjh0lVdSJ6j14WwYeh3HA/edit?usp=sharing) |
-|   8 |      3/30 (1) |   167 |    sizu | [バーチャルマシン \#2 : プログラム制御]() |
+|   8 |      3/30 (1) |   167 |    sizu | [バーチャルマシン \#2 : プログラム制御](https://drive.google.com/file/d/1q1CkG-QWxzOJVe2Y2XZdsS4EplCBw11y/view?usp=sharing) |
 |   9 |      3/30 (2) |   191 | moririn | [高水準言語](https://drive.google.com/open?id=18WEGFf9OxMRNOzXrXSeEJuxDEBzMxCJW) |
 |  10 |      3/30 (2) |   223 | moririn | [コンパイラ \#1 : 構文解析](https://drive.google.com/file/d/1Y5QK1LehHJrfREYG14lnxiAdrXnQZ9Pt/view?usp=sharing) |
 |  11 |               |   249 |    nora | [コンパイラ \#2 : コード生成]() |
