@@ -29,7 +29,7 @@
 |   9 |      3/30 (2) |   191 | moririn | [高水準言語](https://drive.google.com/open?id=18WEGFf9OxMRNOzXrXSeEJuxDEBzMxCJW) |
 |  10 |      3/30 (2) |   223 | moririn | [コンパイラ \#1 : 構文解析](https://drive.google.com/file/d/1Y5QK1LehHJrfREYG14lnxiAdrXnQZ9Pt/view?usp=sharing) |
 |  11 |      4/12 (1) |   249 |    nora | コンパイラ \#2 : コード生成|
-|  12 |      4/12 (2) |   277 |    cmer | オペレーティングシステム|
+|  12 |      4/12 (2) |   277 |    cmer | [オペレーティングシステム](https://drive.google.com/open?id=10KPMANC7v_zjiMxpxS3yg7fYdlbgy-iX) |
 |  13 |               |   315 |         | さらに先へ|
 
 [Top Page](../index.md)
