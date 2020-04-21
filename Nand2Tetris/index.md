@@ -16,20 +16,20 @@
 
 ### Schedule
 
-| No  | Date (Period) | Pages | Name    | Title (Note)                                  | Slide |
-|:---:|:-------------:|:-----:|:-------:|-----------------------------------------------| ------|
-|   1 |               |     1 |     zak | ブール論理 | [Slide](https://drive.google.com/file/d/1Cfb_5-vq1qH1x9VlMbciUkYaFVXLX-ia/view?usp=sharing) |
-|   2 |               |    27 |    sizu | ブール算術 | [Slide](https://drive.google.com/file/d/1Q901p9uVsE3deaQhhNjMyoeDhr92k9hm/view?usp=sharing) |
-|   3 |               |    41 |      ed | 順序回路 | [Slide](https://drive.google.com/file/d/1aFX-Me2v4UHIU409vSaA1KtZ18Y_N7nM/view?usp=sharing) |
-|   4 |               |    59 | moririn | 機械語 | [Slide](https://drive.google.com/file/d/1WHCUgu6BtOvmxfTqqdsQ-Qi3e11ZwLYT/view?usp=sharing) |
-|   5 |      3/20 (1) |    85 |    cmer | コンピュータアーキテクチャ | [Slide](https://drive.google.com/open?id=1__d93n2fLFx4yTMzQRrjB9ssRgpi1KJP) |
-|   6 |      3/20 (2) |   111 |      ed | アセンブラ | [Slide](https://drive.google.com/file/d/1H6bj335h6h2lWd6lT2lOwrzEoTdB2IxO/view?usp=sharing) |
-|   7 |      3/24 (1) |   133 |     zak | バーチャルマシン \#1 : スタック操作 | [Slide](https://docs.google.com/presentation/d/1Vy5_SSy7CXb3QxGTXdTZTRBjh0lVdSJ6j14WwYeh3HA/edit?usp=sharing) |
-|   8 |      3/30 (1) |   167 |    sizu | バーチャルマシン \#2 : プログラム制御 | [Slide](https://drive.google.com/file/d/1q1CkG-QWxzOJVe2Y2XZdsS4EplCBw11y/view?usp=sharing) |
-|   9 |      3/30 (2) |   191 | moririn | 高水準言語 | [Slide](https://drive.google.com/open?id=18WEGFf9OxMRNOzXrXSeEJuxDEBzMxCJW) |
-|  10 |      3/30 (2) |   223 | moririn | コンパイラ \#1 : 構文解析 | [Slide](https://drive.google.com/file/d/1Y5QK1LehHJrfREYG14lnxiAdrXnQZ9Pt/view?usp=sharing) |
-|  11 |      4/12 (1) |   249 |    nora | コンパイラ \#2 : コード生成| [Slide](https://drive.google.com/open?id=1gxSfDwpKJYRLRQFMta7q1cbCurbbJ33K) |
-|  12 |      4/12 (2) |   277 |    cmer | オペレーティングシステム| [Slide](https://drive.google.com/open?id=10KPMANC7v_zjiMxpxS3yg7fYdlbgy-iX) |
-|  13 |               |   315 |         | さらに先へ| |
+| No  | Date | Pages | Name    | Title (Note)                          | Slide                                                                                       |
+|:---:|:----:|:-----:|:-------:|---------------------------------------|---------------------------------------------------------------------------------------------|
+| 1   | 5/27 | 1     | zak     | ブール論理                            | [Slide](https://drive.google.com/file/d/1jxzjURF4G_Y50hCXu-_KZiXkRCSmH9EB/view?usp=sharing) |
+| 2   | 6/6  | 27    | sizu    | ブール算術                            | [Slide](https://drive.google.com/file/d/1yO9RSIQSDcNXEOvKs-O6jz2IGnoH0C8U/view?usp=sharing) |
+| 3   | 6/10 | 41    | ed      | 順序回路                              | [Slide](https://drive.google.com/file/d/1ocwf6nSQzKDSbdGQaHLjmgSwgAkxHqsL/view?usp=sharing) |
+| 4   | 6/20 | 59    | moririn | 機械語                                | [Slide](https://drive.google.com/file/d/1AkWEDvILEjT4_IsXDSwHRH5VZJbP2yNc/view?usp=sharing) |
+| 5   | 3/20 | 85    | cmer    | コンピュータアーキテクチャ            | [Slide](https://drive.google.com/file/d/1UI9Q-jmDuKTtBRQ704shdrZm0qo4gaRN/view?usp=sharing) |
+| 6   | 3/20 | 111   | ed      | アセンブラ                            | [Slide](https://drive.google.com/file/d/1knoxglSSaaPvhdBvB86yQFmiC3gJ0lfx/view?usp=sharing) |
+| 7   | 3/24 | 133   | zak     | バーチャルマシン \#1 : スタック操作   | [Slide](https://drive.google.com/file/d/1QA3c5Qi-a4P5jisoa5dqDxBV-fHRbXrm/view?usp=sharing) |
+| 8   | 3/30 | 167   | sizu    | バーチャルマシン \#2 : プログラム制御 | [Slide](https://drive.google.com/file/d/1ZjrwLwjnVhHITxZ70Fo0wGUaEOixXVIt/view?usp=sharing) |
+| 9   | 3/30 | 191   | moririn | 高水準言語                            | [Slide](https://drive.google.com/file/d/1UORHSVjL3xzzCibpyzBhxOQJ38NzBvY_/view?usp=sharing) |
+| 10  | 3/30 | 223   | moririn | コンパイラ \#1 : 構文解析             | [Slide](https://drive.google.com/file/d/1iU_xrzc8RHWNA1zLXjJyKx4THWiOLQZd/view?usp=sharing) |
+| 11  | 4/12 | 249   | nora    | コンパイラ \#2 : コード生成           | [Slide](https://drive.google.com/file/d/1lqO4mfeqYf5QgcxJzc8MOOCxhVxue1Wg/view?usp=sharing) |
+| 12  | 4/12 | 277   | cmer    | オペレーティングシステム              | [Slide](https://drive.google.com/file/d/1LJs7A1-YnBoF7FAZTiJLZw7z7nMcEXZZ/view?usp=sharing) |
+| 13  |      | 315   |         | さらに先へ                            |                                                                                             |
 
 [Top Page](../index.md)
